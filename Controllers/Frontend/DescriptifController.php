@@ -6,6 +6,6 @@ class DescriptifController
 {
     public function index()
     {
-        include_once 'Views/Frontend/descriptif/index.php';
+        include_once ROOT.'/Views/Frontend/descriptif/index.php';
     }
 }

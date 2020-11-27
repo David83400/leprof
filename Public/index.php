@@ -3,7 +3,9 @@
 use LeProf\Autoloader;
 use LeProf\Core\Main;
 
-require_once 'Autoloader.php';
+define('ROOT', dirname(__DIR__));
+
+require_once ROOT.'/Autoloader.php';
 Autoloader::register();
 
 $leProf = new Main();

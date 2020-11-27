@@ -6,6 +6,6 @@ class MainController extends Controller
 {
     public function index()
     {
-        include_once 'Views/Frontend/home/index.php';
+        include_once ROOT.'/Views/Frontend/home/index.php';
     }
 }

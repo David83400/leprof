@@ -42,7 +42,7 @@ abstract class Manager
     {
         if ($this->db == null)
         {
-            $this->db = new PDO('mysql:host=localhost;dbname=leProf;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            $this->db = new \PDO('mysql:host=localhost;dbname=leProf;charset=utf8', 'root', '', array(\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION));
         }
         return $this->db;
     }

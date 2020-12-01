@@ -3,6 +3,8 @@
 namespace LeProf\Core;
 
 use LeProf\Controllers\Frontend\MainController;
+use LeProf\Models\Frontend\MembersModel;
+use LeProf\Models\Frontend\VisitorsModel;
 
 class Main
 {
@@ -53,11 +55,11 @@ class Main
                 }
             }
         }else{
-             // On n'a pas de paramètre donc on instancie le controller par défaut
-             $homeController = new MainController;
+            // On n'a pas de paramètre donc on instancie le controller par défaut
+            $homeController = new MainController;
 
-             // On appelle la méthode home
-             $homeController->index();
+            // On appelle la méthode home
+            $homeController->index();
         }
     }
 }

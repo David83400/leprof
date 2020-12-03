@@ -1,1 +1,0 @@
-<p>Page descriptif du site</p>

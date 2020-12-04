@@ -8,6 +8,6 @@ class MainController extends Controller
 {
     public function index()
     {
-        include_once ROOT.'/Views/home/index.php';
+        $this->render('home/index');
     }
 }

@@ -5,10 +5,10 @@
     <div class="collapse navbar-collapse" id="collapse_target">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fas fa-home"></i></a>
+                <a class="nav-link" href="/"><i class="fas fa-home"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Descriptif</a>
+                <a class="nav-link" href="/descriptif">Descriptif</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
@@ -23,6 +23,6 @@
         </div>
     </div>
     <div class="connexion">
-        <a href="index.php?action=connexion">Se connecter</a>
+        <a href="/members/login">Se connecter</a>
     </div>
 </nav>

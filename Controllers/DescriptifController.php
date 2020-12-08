@@ -18,4 +18,17 @@ class DescriptifController extends Controller
         // On génère la view
         $this->render('descriptif/index', ['visitors' => $visitors]);
     }
+
+    public function connaitre(int $id)
+    {
+        // exemple d'affichage d'un visitor
+        // On instancie le modèle
+        $visitorModel = new VisitorsModel();
+
+        // On va chercher 1 visitor
+        $visitor = $visitorModel->find($id);
+
+        // On envoie à la vue
+        $this->render('descriptif/connaitre', ['visitor' => $visitor]);
+    }
 }

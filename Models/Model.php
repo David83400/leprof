@@ -44,7 +44,7 @@ abstract class Model extends Manager
         return $sql;
     }
 
-    public function create(Model $model)
+    public function create()
     {
         // On éclate le tableau en 3 tableaux champs => valeurs
         // 1 qui contient les champs, l'autre les valeurs, l'autre les points d'interrogation
@@ -53,7 +53,7 @@ abstract class Model extends Manager
         $values = [];
 
         // On boucle pour éclater le tableau
-        foreach($model as $range => $value){
+        foreach($this as $range => $value){
             // On crée d'abord le paramètre
             if($value !== null && $range != 'db' && $range != 'table'){
                 $ranges[] = $range;
@@ -71,7 +71,7 @@ abstract class Model extends Manager
         return $sql; 
     }
 
-    public function update(int $id, Model $model)
+    public function update()
     {
         // On éclate le tableau en 3 tableaux champs => valeurs
         // 1 qui contient les champs, l'autre les valeurs, l'autre les points d'interrogation
@@ -79,14 +79,14 @@ abstract class Model extends Manager
         $values = [];
 
         // On boucle pour éclater le tableau
-        foreach($model as $range => $value){
+        foreach($this as $range => $value){
             // On crée d'abord le paramètre
             if($value !== null && $range != 'db' && $range != 'table'){
                 $ranges[] = "$range = ?";
                 $values[] = $value;
             }
         }
-        $values[] = $id;
+        $values[] = $this->id;
         // On transforme le tableau ranges en une chaine de caractères
         $rangesList = implode(', ', $ranges);
 
@@ -101,7 +101,7 @@ abstract class Model extends Manager
         return $sql;
     }
 
-    public function hydrate(array $data)
+    public function hydrate($data)
     {
         foreach($data as $key => $value){
             // On récupère le nom du setter correspondant à la key

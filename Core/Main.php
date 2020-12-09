@@ -10,6 +10,8 @@ class Main
 {
     public function routerRequest()
     {
+        // On démarre la session
+        session_start();
         // On récupère l'URL
         $uri = $_SERVER['REQUEST_URI'];
 

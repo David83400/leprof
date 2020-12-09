@@ -15,14 +15,28 @@
             </li>
         </ul>
     </div>
+    <?php
+    if (isset($_SESSION['member']) && !empty($_SESSION['member']['id']))
+    {
+    ?>
     <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <?= $_SESSION['member']['lastName'] ?>
+        </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Mon profil</a>
-            <a class="dropdown-item" href="#">Se déconnecter</a>
+            <a class="dropdown-item" href="/members/profil">Mon profil</a>
+            <a class="dropdown-item" href="/members/logout">Se déconnecter</a>
         </div>
     </div>
+    <?php
+    }
+    else
+    {
+    ?>
     <div class="connexion">
-        <a href="/members/login">Se connecter</a>
+        <a href="/members/register">Se connecter</a>
     </div>
+    <?php
+    }
+    ?>
 </nav>

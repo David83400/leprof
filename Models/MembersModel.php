@@ -20,6 +20,43 @@ class MembersModel extends Model
     }
 
     /**
+     * Récupérer un member à partir de son email
+     *
+     * @param string $email
+     * @return mixed
+     */
+    public function findOneByEmail(string $email)
+    {
+        $sql = $this->executeRequest('SELECT * FROM '.$this->table.' WHERE email = ?', [$email])->fetch();
+        return $sql;
+    }
+    /**
+     * Récupérer un member à partir de son nom
+     *
+     * @param string $email
+     * @return mixed
+     */
+    public function findOneByLastName(string $lastName)
+    {
+        $sql = $this->executeRequest('SELECT * FROM '.$this->table.' WHERE lastName = ?', [$lastName])->fetch();
+        return $sql;
+    }
+
+    /**
+     * Crée la session de l'utilisateur
+     * @return void
+     */
+    public function setSession()
+    {
+        $_SESSION['member'] = [
+            'id' => $this->id,
+            'lastName' => $this->lastName,
+            'firstName' => $this->firstName,
+            'nationality' => $this->nationality
+        ];
+    }
+
+    /**
      * Get the value of id
      *
      * @return void

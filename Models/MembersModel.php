@@ -11,7 +11,7 @@ class MembersModel extends Model
     protected $firstName;
     protected $nationality;
     protected $pass;
-    protected $isAdmin;
+    protected $roles;
     protected $inscriptionDate;
 
     public function __construct()
@@ -49,10 +49,11 @@ class MembersModel extends Model
     public function setSession()
     {
         $_SESSION['member'] = [
-            'id' => $this->id,
-            'lastName' => $this->lastName,
-            'firstName' => $this->firstName,
-            'nationality' => $this->nationality
+            'id'          => $this->id,
+            'lastName'    => $this->lastName,
+            'firstName'   => $this->firstName,
+            'nationality' => $this->nationality,
+            'roles'       => $this->roles
         ];
     }
 
@@ -167,24 +168,26 @@ class MembersModel extends Model
     }
 
     /**
-     * Get the value of isAdmin
+     * Get the value of roles
      *
      * @return void
      */
-    public function getIsAdmin()
+    public function getRoles():array
     {
-        return $this->isAdmin;
+        $roles =  $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
     }
 
     /**
-     * Set the value of isAdmin
+     * Set the value of roles
      *
-     * @param [boolean] $isAdmin
+     * @param [boolean] $roles
      * @return self
      */
-    public function setIsAdmin($isAdmin)
+    public function setRoles($roles)
     {
-        $this->isAdmin = $isAdmin;
+        $this->roles = json_decode($roles);
         return $this;
     }
 

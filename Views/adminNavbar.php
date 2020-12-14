@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,25 +13,33 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin">Administration</a>
+            </li>
         </ul>
     </div>
     <?php
-    if (isset($_SESSION['member']) && !empty($_SESSION['member']['id'])): ?>
+    if (isset($_SESSION['member']) && !empty($_SESSION['member']['id']))
+    {
+    ?>
     <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <?= $_SESSION['member']['lastName'] ?>
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-        <?php if (in_array('ROLE_ADMIN', $_SESSION['member']['roles'])): ?>
-            <a class="dropdown-item" href="/admin">Administration</a>
-        <?php endif ?>
             <a class="dropdown-item" href="/members/profil">Mon profil</a>
             <a class="dropdown-item" href="/members/logout">Se déconnecter</a>
         </div>
     </div>
-    <?php else: ?>
+    <?php
+    }
+    else
+    {
+    ?>
     <div class="connexion">
         <a href="/members/register">Se connecter</a>
     </div>
-    <?php endif ?>
+    <?php
+    }
+    ?>
 </nav>

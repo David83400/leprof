@@ -21,7 +21,7 @@ class MembersController extends Controller
             $memberArray = $membersModel->findOneByLastName(strip_tags($_POST['lastName']));
             if(!$memberArray){
                 // On envoie un message de session
-                $_SESSION['erreur'] = 'Il y\'a une erreur !';
+                $_SESSION['error'] = 'Il y\'a une erreur !';
                 header('Location: /members/login');
                 exit;
             }
@@ -30,8 +30,8 @@ class MembersController extends Controller
             $member = $membersModel->hydrate($memberArray);
 
             // On vérifie si le mot de passe est correct
-            //if(password_verify($_POST['pass'], $member->getPass())){
-            if($_POST['pass'] === $member->getPass()){
+            if(password_verify($_POST['pass'], $member->getPass())){
+            //if($_POST['pass'] === $member->getPass()){
                 // Le mot de passe est bon
                 // On crée la session
                 $member->setSession();
@@ -39,7 +39,7 @@ class MembersController extends Controller
                 exit;
             }else{
                 // Mauvais mot de passe
-                $_SESSION['erreur'] = 'Il y\'a une erreur !';
+                $_SESSION['error'] = 'Il y\'a une erreur !';
                 header('Location: /members/login');
                 exit;
             }
@@ -70,7 +70,7 @@ class MembersController extends Controller
         if(Form::validate($_POST, ['lastName', 'pass'])){
             // Le formulaire est valide
             // On nettoie l'adresse mail
-            $lastName = strip_tags($_POST['lastName']); // htmlspecialchars garde les entités qu'il y'a dedans, strip tags nettoie tout
+            $lastName = strip_tags($_POST['lastName']); // htmlspecialchars garde les entités qu'il y'a dedans, strip tags enlève toutes les balises html, il nettoie tout
 
             // On chiffre le mot de passe
             $pass = password_hash($_POST['pass'], PASSWORD_ARGON2I);

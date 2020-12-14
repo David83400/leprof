@@ -59,7 +59,7 @@
             </div>
         </header>
 
-        <?= $navbar ?>
+        <?= $adminNavbar ?>
         
         <div class="container-fluid">
             <?php if(isset($_SESSION['error']))

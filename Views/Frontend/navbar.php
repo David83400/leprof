@@ -23,10 +23,10 @@
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
         <?php if (in_array('ROLE_ADMIN', $_SESSION['member']['roles'])): ?>
-            <a class="dropdown-item" href="/admin">Administration</a>
+            <a class="dropdown-item" href="admin">Administration</a>
         <?php endif ?>
-            <a class="dropdown-item" href="/members/profil">Mon profil</a>
-            <a class="dropdown-item" href="/members/logout">Se déconnecter</a>
+            <a class="dropdown-item" href="members/profil">Mon profil</a>
+            <a class="dropdown-item" href="members/logout">Se déconnecter</a>
         </div>
     </div>
     <?php else: ?>

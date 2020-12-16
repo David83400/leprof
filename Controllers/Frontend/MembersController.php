@@ -1,7 +1,8 @@
 <?php
 
-namespace LeProf\Controllers;
+namespace LeProf\Controllers\Frontend;
 
+use LeProf\Controllers\Controller;
 use LeProf\Core\Form;
 use LeProf\Models\MembersModel;
 
@@ -57,7 +58,7 @@ class MembersController extends Controller
             ->addButton('Me connecter', ['class' => 'btn btn-primary'])
             ->endForm();
 
-        $this->render('members/login', ['loginForm' => $form->create()]);
+        $this->frontRender('Frontend/members/login', ['loginForm' => $form->create()]);
     }
 
     /**
@@ -99,7 +100,7 @@ class MembersController extends Controller
             ->addButton('M\'inscrire', ['class' => 'btn btn-primary'])
             ->endForm();
 
-        $this->render('members/register', ['registerForm' => $form->create()]);
+        $this->frontRender('Frontend/members/register', ['registerForm' => $form->create()]);
     }
 
     /**

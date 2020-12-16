@@ -12,13 +12,27 @@ abstract class Controller
      * @param [mixed] $data
      * @return void
      */
-    public function render(string $file, array $data = [], string $template = 'template')
+    public function frontRender(string $file, array $data = [], string $template = 'Frontend/template')
     {
         $content = $this->generateFile($file, $data);
-        $navbar = $this->generateFile("/navbar", $data);
-        $adminNavbar = $this->generateFile("/adminNavbar", $data);
-        $footer = $this->generateFile("/footer", $data);
-        $view = $this->generateFile('/'.$template, array('title' => $this->title, 'navbar' => $navbar, 'adminNavbar' => $adminNavbar, 'content' => $content, 'footer' => $footer));
+        $navbar = $this->generateFile("/Frontend/navbar", $data);
+        $footer = $this->generateFile("/Frontend/footer", $data);
+        $view = $this->generateFile('/'.$template, array('title' => $this->title, 'navbar' => $navbar, 'content' => $content, 'footer' => $footer));
+
+        echo $view;
+    }
+
+    /**
+     * Generate and display Backend views
+     *
+     * @param [mixed] $data
+     * @return void
+     */
+    public function backRender(string $file, array $data = [], string $template = 'Backend/adminTemplate')
+    {
+        $content = $this->generateFile($file, $data);
+        $adminNavbar = $this->generateFile("/Backend/adminNavbar", $data);
+        $view = $this->generateFile('/'.$template, array('title' => $this->title, 'adminNavbar' => $adminNavbar, 'content' => $content));
 
         echo $view;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace LeProf\Controllers;
+namespace LeProf\Controllers\Frontend;
 
 use LeProf\Controllers\Controller;
 
@@ -8,6 +8,6 @@ class MainController extends Controller
 {
     public function index()
     {
-        $this->render('home/index', []);
+        $this->frontRender('Frontend/home/index', []);
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace LeProf\Controllers;
+namespace LeProf\Controllers\Backend;
 
+use LeProf\Controllers\Controller;
 use LeProf\Models\ContactModel;
 use LeProf\Models\AssistanceModel;
 
@@ -11,7 +12,7 @@ class AdminController extends Controller
     {
         // On vérifie si on est admin
         if($this->isAdmin()){
-            $this->render('admin/index', [], 'adminTemplate');
+            $this->backRender('Backend/admin/index', [], 'Backend/adminTemplate');
         }
     }
 
@@ -27,7 +28,7 @@ class AdminController extends Controller
 
             $contactMessages = $contactModel->findAll();
 
-            $this->render('admin/contactMessages', ['contactMessages' => $contactMessages], 'adminTemplate');
+            $this->backRender('Backend/admin/contactMessages', ['contactMessages' => $contactMessages], 'Backend/adminTemplate');
         }
     }
 
@@ -60,7 +61,7 @@ class AdminController extends Controller
 
             $assistanceMessages = $assistanceModel->findAll();
 
-            $this->render('admin/assistanceMessages', ['assistanceMessages' => $assistanceMessages], 'adminTemplate');
+            $this->backRender('Backend/admin/assistanceMessages', ['assistanceMessages' => $assistanceMessages], 'Backend/adminTemplate');
         }
     }
 

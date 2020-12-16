@@ -1,6 +1,6 @@
 <?php
 
-namespace LeProf\Controllers;
+namespace LeProf\Controllers\Frontend;
 
 use LeProf\Controllers\Controller;
 use LeProf\Models\VisitorsModel;
@@ -16,7 +16,7 @@ class DescriptifController extends Controller
         $visitors = $visitorsModel->findAll();
 
         // On génère la view
-        $this->render('descriptif/index', ['visitors' => $visitors]);
+        $this->frontRender('Frontend/descriptif/index', ['visitors' => $visitors]);
     }
 
     public function connaitre(int $id)
@@ -29,6 +29,6 @@ class DescriptifController extends Controller
         $visitor = $visitorModel->find($id);
 
         // On envoie à la vue
-        $this->render('descriptif/connaitre', ['visitor' => $visitor]);
+        $this->frontRender('Frontend/descriptif/connaitre', ['visitor' => $visitor]);
     }
 }

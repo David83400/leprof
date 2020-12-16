@@ -16,7 +16,7 @@
             <td><?= $contactMessage->messageDate ?></td>
             <td><?= $contactMessage->visitorId ?></td>
             <td>
-                <a href="" class="btn btn-warning">Modifier</a>
+                <a href="" class="btn btn-warning">Afficher</a>
                 <a href="/admin/deleteContactMessage/<?= $contactMessage->id ?>" class="btn btn-danger">Supprimer</a>
             </td>
         </tr>

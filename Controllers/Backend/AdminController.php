@@ -3,8 +3,8 @@
 namespace LeProf\Controllers\Backend;
 
 use LeProf\Controllers\Controller;
-use LeProf\Models\ContactModel;
-use LeProf\Models\AssistanceModel;
+use LeProf\Models\Backend\ContactModel;
+use LeProf\Models\Backend\AssistanceModel;
 
 class AdminController extends Controller
 {

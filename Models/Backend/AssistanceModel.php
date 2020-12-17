@@ -1,6 +1,6 @@
 <?php
 
-namespace LeProf\Models;
+namespace LeProf\Models\Backend;
 
 use LeProf\Models\Model;
 

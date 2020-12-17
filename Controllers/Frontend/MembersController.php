@@ -4,7 +4,7 @@ namespace LeProf\Controllers\Frontend;
 
 use LeProf\Controllers\Controller;
 use LeProf\Core\Form;
-use LeProf\Models\MembersModel;
+use LeProf\Models\Frontend\MembersModel;
 
 class MembersController extends Controller
 {

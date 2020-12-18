@@ -6,55 +6,76 @@ use LeProf\Core\Manager;
 
 abstract class Model extends Manager
 {
-    // Table de la base de données
+    // Table of the database
     protected $table;
 
+    /**
+     * Select all
+     *
+     * @return void
+     */
     public function findAll()
     {
          $sql = $this->executeRequest('SELECT * FROM '. $this->table);
          return $sql->fetchAll();
     }
 
-    // On crée un tableau pour faire une recherche avec des critères
+    /**
+     * Select by $params
+     *
+     * @param array $params
+     * @return void
+     */
     public function findBy(array $params)
     {
-        // On éclate le tableau en 2 tableaux champs => valeurs
-        // 1 qui contient les champs, l'autre les valeurs
+        // We explode the array into 2 arrays ranges => values
+        // One contains ranges, the other values
         $ranges = [];
         $values = [];
 
-        // On boucle pour éclater le tableau
+        // We loop to explode the table
         foreach($params as $range => $value){
-            // On crée d'abord le paramètre
+            // We create first the parameter
             $ranges[] = "$range = ?";
             $values[] = $value;
         }
         
-        // On transforme le tableau champs en une chaine de caractères
+        // We transform the ranges array into a string
         $rangesList = implode(' AND ', $ranges);
         
-        // On execute la requète
+        // We execute request
         $sql = $this->executeRequest('SELECT * FROM '.$this->table.' WHERE '. $rangesList, $values)->fetchAll();
         return $sql;
     }
-    
+
+    /**
+     * Select by $id
+     *
+     * @param integer $id
+     * @return void
+     */
     public function find(int $id)
     {
         $sql = $this->executeRequest("SELECT * FROM $this->table WHERE id = $id")->fetch();
         return $sql;
     }
 
+    /**
+     * Create in the database
+     *
+     * @return void
+     */
     public function create()
     {
-        // On éclate le tableau en 3 tableaux champs => valeurs
-        // 1 qui contient les champs, l'autre les valeurs, l'autre les points d'interrogation
+        // We explode the array into 3 arrays ranges => values
+        // 1 contain ranges, the other values, the other question marks
         $ranges = [];
         $attributes = [];
         $values = [];
 
-        // On boucle pour éclater le tableau
+        // We loop to explode the table
         foreach($this as $range => $value){
-            // On crée d'abord le paramètre
+            // We create first the parameter
             if($value !== null && $range != 'db' && $range != 'table'){
                 $ranges[] = $range;
                 $attributes[] = "?";
@@ -62,60 +83,75 @@ abstract class Model extends Manager
             } 
         }
         
-        // On transforme le tableau ranges en une chaine de caractères
+        // We transform the ranges array into a string
         $rangesList = implode(', ', $ranges);
         $attributesList = implode(', ', $attributes);
 
-        // On execute la requète
+        // We execute request
         $sql = $this->executeRequest('INSERT INTO '.$this->table.' ('. $rangesList.')VALUES('.$attributesList.')', $values);
         return $sql; 
     }
 
+    /**
+     * Update a line in the database
+     *
+     * @return void
+     */
     public function update()
     {
-        // On éclate le tableau en 3 tableaux champs => valeurs
-        // 1 qui contient les champs, l'autre les valeurs, l'autre les points d'interrogation
+        // We explode the array into 3 arrays ranges => values
+        // 1 contain ranges, the other values, the other question marks
         $ranges = [];
         $values = [];
 
-        // On boucle pour éclater le tableau
+        // We loop to explode the table
         foreach($this as $range => $value){
-            // On crée d'abord le paramètre
+            // We create first the parameter
             if($value !== null && $range != 'db' && $range != 'table'){
                 $ranges[] = "$range = ?";
                 $values[] = $value;
             }
         }
         $values[] = $this->id;
-        // On transforme le tableau ranges en une chaine de caractères
+        // We transform the ranges array into a string
         $rangesList = implode(', ', $ranges);
 
-        // On execute la requète
+        // We execute request
         $sql = $this->executeRequest('UPDATE '.$this->table.' SET '. $rangesList.'WHERE id = ?', $values);
         return $sql; 
     }
 
+    /**
+     * Delete a line in the database
+     *
+     * @param integer $id
+     * @return void
+     */
     public function delete(int $id)
     {
         $sql = $this->executeRequest('DELETE FROM '.$this->table.' WHERE id = ? ', [$id]);
         return $sql;
     }
 
+    /**
+     * Hydrate method
+     *
+     * @param [mixed] $data
+     * @return void
+     */
     public function hydrate($data)
     {
         foreach($data as $key => $value){
-            // On récupère le nom du setter correspondant à la key
+            // We get the name of the setter corresponding to the key
             // => ex : titre => setTitre
             $setter = 'set'.ucfirst($key);
 
-            // On vérifie que le setter existe
+            // We verify that the setter exists
             if(method_exists($this, $setter)){
-                // On appelle le setter
+                // We call the setter
                 $this->$setter($value);
             }
         }
         return $this;
     }
-
-
 }

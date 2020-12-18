@@ -20,7 +20,7 @@ class MembersModel extends Model
     }
 
     /**
-     * Récupérer un member à partir de son email
+     * Select a member by email
      *
      * @param string $email
      * @return mixed
@@ -31,7 +31,7 @@ class MembersModel extends Model
         return $sql;
     }
     /**
-     * Récupérer un member à partir de son nom
+     * Select a member by is name
      *
      * @param string $email
      * @return mixed
@@ -43,7 +43,7 @@ class MembersModel extends Model
     }
 
     /**
-     * Crée la session de l'utilisateur
+     * Set the user session
      * @return void
      */
     public function setSession()

@@ -7,15 +7,17 @@ use LeProf\Models\Frontend\VisitorsModel;
 
 class DescriptifController extends Controller
 {
+    /**
+     * Display the descriptif page
+     *
+     * @return void
+     */
     public function index()
     {
-        // On instancie le modèle correspondant à la table descriptif
         $visitorsModel = new VisitorsModel();
 
-        // On va chercher tous les visitors
         $visitors = $visitorsModel->findAll();
 
-        // On génère la view
         $this->frontRender('Frontend/descriptif/index', ['visitors' => $visitors]);
     }
 

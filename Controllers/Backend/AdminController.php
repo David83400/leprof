@@ -8,16 +8,20 @@ use LeProf\Models\Backend\AssistanceModel;
 
 class AdminController extends Controller
 {
+    /**
+     * Display the admin page
+     *
+     * @return void
+     */
     public function index()
     {
-        // On vérifie si on est admin
         if($this->isAdmin()){
             $this->backRender('Backend/admin/index', [], 'Backend/adminTemplate');
         }
     }
 
     /**
-     * Affiche la liste des messages de contact sous forme de tableau
+     * Display contact messages list in an array
      *
      * @return void
      */
@@ -50,7 +54,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Affiche la liste des messages d'assistance sous forme de tableau
+     * Display assistance messages list in an array
      *
      * @return void
      */
@@ -82,6 +86,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * Method to verify if the user is Admin
+     *
+     * @return boolean
+     */
     private function isAdmin()
     {
         // On vérifie si on est connecté et si ROLE_ADMIN est dans nos roles

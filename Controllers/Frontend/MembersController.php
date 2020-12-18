@@ -9,37 +9,39 @@ use LeProf\Models\Frontend\MembersModel;
 class MembersController extends Controller
 {
     /**
-     * Connexion des utilisateurs
+     * Users connection verifications and form creation
      * @return void
      */
     public function login()
     {
-        // On vérifie si le formulaire est complet
+        // Verify if connection form is complete
         if(Form::validate($_POST, ['lastName', 'pass'])){
-            // Le formulaire est valide
-            // On cherche dans la base de données l'utilisateur avec le nom entré
+            // We search the user in the database
             $membersModel = new MembersModel();
             $memberArray = $membersModel->findOneByLastName(strip_tags($_POST['lastName']));
             if(!$memberArray){
-                // On envoie un message de session
+                // If there's no correspondance we send a session message
                 $_SESSION['error'] = 'Il y\'a une erreur !';
                 header('Location: /members/login');
                 exit;
             }
 
-            // Le membre existe
+            // If user exists
             $member = $membersModel->hydrate($memberArray);
 
-            // On vérifie si le mot de passe est correct
+            // Password verification
             if(password_verify($_POST['pass'], $member->getPass())){
-            //if($_POST['pass'] === $member->getPass()){
-                // Le mot de passe est bon
-                // On crée la session
+                // If pasword is good, we create the session
                 $member->setSession();
-                header('Location: /');
-                exit;
+                if(isset($_SESSION['member']) && in_array('ROLE_ADMIN', $_SESSION['member']['roles'])){
+                    header('Location: /admin');
+                    exit;
+                }else{
+                    header('Location: /');
+                    exit;
+                }
             }else{
-                // Mauvais mot de passe
+                // If password is false
                 $_SESSION['error'] = 'Il y\'a une erreur !';
                 header('Location: /members/login');
                 exit;
@@ -62,27 +64,26 @@ class MembersController extends Controller
     }
 
     /**
-     * Inscription des utilisateurs
+     * Users registration verifications and form creation
      * @return void
      */
     public function register()
     {
-        //On vérifie si le formulaire est valide
+        // Verify if registration form is complete
         if(Form::validate($_POST, ['lastName', 'pass'])){
-            // Le formulaire est valide
-            // On nettoie l'adresse mail
+            // If form is complete we cleans $_POST
             $lastName = strip_tags($_POST['lastName']); // htmlspecialchars garde les entités qu'il y'a dedans, strip tags enlève toutes les balises html, il nettoie tout
 
-            // On chiffre le mot de passe
+            // we hash the password
             $pass = password_hash($_POST['pass'], PASSWORD_ARGON2I);
 
-            // On hydrate le membre
+            // we hydrate member
             $member = new MembersModel();
             
             $member->setLastName($lastName)
             ->setPass($pass);
             
-            // On stocke le membre en base de données
+            // Member is create in database
             $member->create();
         }
 
@@ -104,14 +105,14 @@ class MembersController extends Controller
     }
 
     /**
-     * Déconnexion de l'utilisateur
+     * Logout of the user
      *
      * @return void
      */
     public function logout()
     {
         unset($_SESSION['member']);
-        header('Location: '. $_SERVER['HTTP_REFERER']);
+        header('Location: /');
         exit;
     }
 }

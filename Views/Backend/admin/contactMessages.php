@@ -1,3 +1,4 @@
+<?php $this->title = 'Le Prof | Admin - Contact' ?>
 <table class="table table-striped">
     <thead>
         <th>Id</th>

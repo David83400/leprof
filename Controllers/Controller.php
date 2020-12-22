@@ -2,8 +2,11 @@
 
 namespace LeProf\Controllers;
 
+use LeProf\Core\Main;
+
 abstract class Controller
 {
+    private $file;
     private $title;
 
     /**
@@ -17,12 +20,12 @@ abstract class Controller
     public function frontRender(string $file, array $data = [], string $template = 'Frontend/template')
     {
         $content = $this->generateFile($file, $data);
-        $head = $this->generateFile("/head", $data);
-        $header = $this->generateFile("/Frontend/header", $data);
-        $navbar = $this->generateFile("/Frontend/navbar", $data);
-        $session = $this->generateFile('/session', $data);
-        $footer = $this->generateFile("/Frontend/footer", $data);
-        $view = $this->generateFile('/'.$template, array(
+        $head = $this->generateFile("head", $data);
+        $header = $this->generateFile("Frontend/header", $data);
+        $navbar = $this->generateFile("Frontend/navbar", $data);
+        $session = $this->generateFile('session', $data);
+        $footer = $this->generateFile("Frontend/footer", $data);
+        $view = $this->generateFile($template, array(
             'title' => $this->title,
             'head' => $head,
             'header' => $header,
@@ -31,7 +34,7 @@ abstract class Controller
             'content' => $content,
             'footer' => $footer
         ));
-
+    
         echo $view;
     }
 
@@ -69,9 +72,15 @@ abstract class Controller
      */
     private function generateFile(string $file, array $data = [])
     {
-        extract($data);
-        ob_start();
-        require ROOT.'/Views/'.$file.'.php';
-        return ob_get_clean();
+        $this->file = ROOT.'/Views/'.$file.'.php';
+
+        if(file_exists($this->file)){
+            extract($data);
+            ob_start();
+            require $this->file;
+            return ob_get_clean(); 
+        }else{
+            throw new \Exception('le fichier ' . $file . ' est introuvable');
+        }
     }
 }

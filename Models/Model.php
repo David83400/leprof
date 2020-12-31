@@ -44,7 +44,43 @@ abstract class Model extends Manager
         $rangesList = implode(' AND ', $ranges);
         
         // We execute request
-        $sql = $this->executeRequest('SELECT * FROM '.$this->table.' WHERE '. $rangesList, $values)->fetchAll();
+        $sql = $this->executeRequest('SELECT * FROM '.$this->table.' WHERE '. $rangesList, $values)->fetch();
+        return $sql;
+    }
+
+    /**
+     * Select on many tables
+     *
+     * @param array $tables
+     * @param array $params
+     * @return void
+     */
+    public function findOnManyTables(array $tables, array $params, array $conditions)
+    {
+        foreach($tables as $table){
+            $tablesList = implode(', ', $tables);
+        }
+
+        // We explode the array $params into 2 arrays ranges => values
+        // One contains ranges, the other values
+        $ranges = [];
+        $values = [];
+        
+        // We loop to explode the table
+        foreach($params as $range => $value){
+            $value = '\''.$value.'\'';
+            $ranges[] = "$range = $value";
+        }
+        
+        foreach($conditions as $range => $value){
+            $ranges[] = "$range = $value";
+        }
+        
+        // We transform the ranges array into a string
+        $rangesList = implode(' AND ', $ranges);
+        
+        // We execute request
+        $sql = $this->executeRequest('SELECT * FROM '.$tablesList.' WHERE '.$rangesList)->fetch();
         return $sql;
     }
 

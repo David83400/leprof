@@ -1,6 +1,6 @@
 <?php
 
-namespace LeProf\Models\Backend;
+namespace LeProf\Models;
 
 use LeProf\Models\Model;
 
@@ -15,6 +15,11 @@ class ContactModel extends Model
     public function __construct()
     {
         $this->table = 'contactMessages';
+    }
+
+    public function sendContactMessage()
+    {
+
     }
 
     /**
@@ -101,7 +106,7 @@ class ContactModel extends Model
      */
     public function setMessageDate($messageDate)
     {
-        $this->messageDate = $messageDate;
+        $this->messageDate = 'NOW()';
         return $this;
     }
 

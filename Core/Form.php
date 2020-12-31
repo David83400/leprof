@@ -33,6 +33,17 @@ class Form
     }
 
     /**
+     * Display errors in the form
+     *
+     * @param array $errors
+     * @return void
+     */
+    public static function displayError(array $errors)
+    {
+        return $errors;
+    }
+
+    /**
      * adds the attributes sent to the tag
      *
      * @param array
@@ -58,6 +69,19 @@ class Form
         }
         return $str;
     }
+
+    private function addHtml(array $tags): string
+    {
+        // We initialize a string
+        $str = '';
+        
+        foreach($tags as $tag => $value){
+            $str .= "<$tag>$value</$tag>";
+        }
+        return $str;
+    }
+
+
 
     /**
      * Form open tag
@@ -95,7 +119,7 @@ class Form
      * @param array $attributes
      * @return self
      */
-    public function addLabelFor(string $for, string $text, array $attributes = []): self
+    public function addLabelFor(string $for, string $text, array $tags = [] , array $attributes = []): self
     {
         // We open label tag
         $this->formCode .= "<label for='$for'";
@@ -104,7 +128,13 @@ class Form
         $this->formCode .= $attributes ? $this->addAttributes($attributes) : '';
 
         // We add text
-        $this->formCode .= ">$text</label>";
+        $this->formCode .= ">$text";
+
+        // We add html
+        $this->formCode .= $tags ? $this->addHtml($tags) : '';
+
+        // we close label
+        $this->formCode .= "</label>";
 
         return $this;
     }

@@ -4,7 +4,7 @@ namespace LeProf\Controllers\Frontend;
 
 use LeProf\Controllers\Controller;
 use LeProf\Core\Form;
-use LeProf\Models\Frontend\MembersModel;
+use LeProf\Models\MembersModel;
 
 class MembersController extends Controller
 {
@@ -70,9 +70,11 @@ class MembersController extends Controller
     public function register()
     {
         // Verify if registration form is complete
-        if(Form::validate($_POST, ['lastName', 'pass'])){
+        if(Form::validate($_POST, ['lastName', 'firstName', 'nationality', 'pass'])){
             // If form is complete we cleans $_POST
-            $lastName = strip_tags($_POST['lastName']); // htmlspecialchars garde les entités qu'il y'a dedans, strip tags enlève toutes les balises html, il nettoie tout
+            $lastName = strip_tags($_POST['lastName']);
+            $firstName = strip_tags($_POST['firstName']);
+            $nationality = strip_tags($_POST['nationality']);
 
             // we hash the password
             $pass = password_hash($_POST['pass'], PASSWORD_ARGON2I);
@@ -81,7 +83,9 @@ class MembersController extends Controller
             $member = new MembersModel();
             
             $member->setLastName($lastName)
-            ->setPass($pass);
+                    ->setFirstName($firstName)
+                    ->setNationality($nationality)
+                    ->setPass($pass);
             
             // Member is create in database
             $member->create();

@@ -3,7 +3,7 @@
 namespace LeProf\Controllers\Frontend;
 
 use LeProf\Controllers\Controller;
-use LeProf\Models\Frontend\VisitorsModel;
+use LeProf\Models\VisitorsModel;
 
 class DescriptifController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace LeProf\Models\Frontend;
+namespace LeProf\Models;
 
 use LeProf\Models\Model;
 
@@ -30,6 +30,7 @@ class MembersModel extends Model
         $sql = $this->executeRequest('SELECT * FROM '.$this->table.' WHERE email = ?', [$email])->fetch();
         return $sql;
     }
+    
     /**
      * Select a member by is name
      *
